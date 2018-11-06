@@ -6,6 +6,15 @@
  * @author Samuel Tinevra
  * Purpose:
  * Last Modified: 6 November 2018
+ * 
+ * 
+ * FEATURE 4: Human Opponent to Support 2-player Game
  */
 
+//TODO Check if publc, public/privlidged, etc
+
 package c4.ext;
+public privileged aspect AddHumanOpponent{
+	
+}
+

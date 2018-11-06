@@ -9,9 +9,7 @@
  */
 
 package c4.ext;
-
-
-
-//TODO SOUNDS: Nazgul for loss
+//TODO Add game loss sound: Nazgul
+//TODO Add game won sound: 
 
 
