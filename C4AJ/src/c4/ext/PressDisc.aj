@@ -6,6 +6,9 @@
  * @author Samuel Tinevra
  * Purpose:
  * Last Modified: 6 November 2018
+ * 
+ * 
+ * FEATURE 1: Makes Disks Larger When Clicked By User
  */
 
 package c4.ext;

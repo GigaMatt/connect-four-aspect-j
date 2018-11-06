@@ -6,6 +6,9 @@
  * @author Samuel Tinevra
  * Purpose:
  * Last Modified: 6 November 2018
+ * 
+ * 
+ * FEATURE 5 EC: Adds a Cheat Key To Aid User in Solving Game
  */
 
 package c4.ext;

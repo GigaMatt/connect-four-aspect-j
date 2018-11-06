@@ -6,6 +6,8 @@
  * @author Samuel Tinevra
  * Purpose:
  * Last Modified: 6 November 2018
+ * 
+ * 
+ * FEATURE 2: Terminates the game when appropriate
  */
-
 package c4.ext;
