@@ -8,11 +8,13 @@
  * Last Modified: 6 November 2018
  * 
  * 
- * FEATURE 3: Adds Sound to the Application
+ * FEATURE 4: Human Opponent to Support 2-player Game
  */
 
-package c4.ext;
-//TODO Add game loss sound: Nazgul
-//TODO Add game won sound: 
+//TODO Check if publc, public/privlidged, etc
 
+package c4.ext;
+public privileged aspect AddHumanOpponent{
+	
+}
 
