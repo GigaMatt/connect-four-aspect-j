@@ -7,7 +7,8 @@
  * Purpose:
  * Last Modified: 6 November 2018
  * 
- * FEATURE >: WTF IS THIS
+ * 
+ * FEATURE: WTF IS THIS?
  */
 package c4.ext;
 import c4.model.*;
