@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="c4-base-src"/>
+	<classpathentry excluding="c4/ext/" kind="src" path="C4AJ/src"/>
+	<classpathentry kind="src" path="C4AJ/src/c4/ext"/>
+	<classpathentry kind="lib" path="c4-base.jar"/>
+	<classpathentry kind="lib" path="C4AJ/c4-aj.jar"/>
+	<classpathentry kind="lib" path="C4AJ/c4-base.jar"/>
+	<classpathentry kind="output" path="C4AJ/bin"/>
+</classpath>
