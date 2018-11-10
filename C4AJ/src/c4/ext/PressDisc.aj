@@ -27,5 +27,17 @@ public privileged aspect PressDisc {
 		panel.addMouseListener(new MouseAdapter(){
 			//TODO verify that @Override is still necessary after code merge
 			//@Override
+			@SuppressWarnings("unused")	//<--- Here as a debug for MouseEvent issues in Matt's code FIXME
+			public void mouse_clicked(MouseEvent e){
+				//Verify game is active
+				if(!(panel.board.isGameOver())){
+					Graphics g = panel.getGraphics();								//Initiate instance of graphics
+					int matrix_position = panel.locateSlot(e.getX(), e.getY());		//ID (x,y) position of board slot
+					panel.drawChecker(g, panel.dropColor, matrix_position, -1, -1);	//Enlarge disk upon pressing	
+				}
+		    }
+		});
 
+		
+	}
 }
