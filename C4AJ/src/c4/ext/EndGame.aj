@@ -34,5 +34,14 @@ public privileged aspect EndGame {
 	pointcut game_over(C4Dialog c4_dialog):this(c4_dialog) && (call(void C4Dialog.makeMove(int)) || call(int Board.dropInSlot(int, Player)));
 	after(C4Dialog c4_dialog):game_over(c4_dialog){
 		
+		//PLAYER WON GAME
+		if(c4_dialog.board.isWonBy(c4_dialog.player)){			//Verify player won game
+			//TODO: VERIFY MP3 IS ACCEPTED
+			AddSound.play_audio("vergecast_season2_ost.mp3");	//Call to AddSound.aj to process & play
+			
+			//Display Win Message
+			JOptionPane.showMessageDialog(new JFrame(), c4_dialog.player.name() + " won the game! Congratulations", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 		
 }
