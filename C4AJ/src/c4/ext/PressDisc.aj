@@ -19,15 +19,15 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public privileged aspect PressDisc {
-
+	
 	pointcut press_disc(BoardPanel panel):(call(int BoardPanel.locateSlot(int,int))) && target(panel) &&! within(PressDisc);
 	after(BoardPanel panel):press_disc(panel){
-
+		
 		//Add listener for when mouse is clicked
 		panel.addMouseListener(new MouseAdapter(){
 			//TODO verify that @Override is still necessary after code merge
 			//@Override
-			@SuppressWarnings("unused")	//<--- Here as a debug for MouseEvent issues in Matt's code FIXME
+			@SuppressWarnings("unused")	//<--- Debugging purposes
 			public void mouse_clicked(MouseEvent e){
 				//Verify game is active
 				if(!(panel.board.isGameOver())){
@@ -35,9 +35,9 @@ public privileged aspect PressDisc {
 					int matrix_position = panel.locateSlot(e.getX(), e.getY());		//ID (x,y) position of board slot
 					panel.drawChecker(g, panel.dropColor, matrix_position, -1, -1);	//Enlarge disk upon pressing	
 				}
-			}
+		    }
 		});
-
+		
 		//Add listener for when mouse is released
 		panel.addMouseListener(new MouseAdapter(){
 			//TODO verify that @Override is still necessary after code merge
@@ -49,7 +49,7 @@ public privileged aspect PressDisc {
 					int matrix_position = panel.locateSlot(e.getX(), e.getY());		//ID (x,y) position of board slot
 					panel.drawChecker(g, panel.dropColor, matrix_position, -1, 0);	//Decrease disk size upon release
 				}	
-			}
+		    }
 		});	
 	}
 }
