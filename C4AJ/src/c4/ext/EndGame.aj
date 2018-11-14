@@ -43,5 +43,16 @@ public privileged aspect EndGame {
 			JOptionPane.showMessageDialog(new JFrame(), c4_dialog.player.name() + " won the game! Congratulations", "Dialog", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
-		
+		//GAME IS A DRAW
+		else {
+			if(c4_dialog.board.isFull()){						//Verify game is a draw
+				//TODO: VERIFY MP3 IS ACCEPTED
+				AddSound.play_audio("lotr_nazgul_scream.mp3");	//Call to AddSound.aj to process & play
+				
+				//Display Draw Message
+				JOptionPane.showMessageDialog(new JFrame(), "The game is a Draw.", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}	
+	}
+
 }
