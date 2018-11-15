@@ -68,5 +68,13 @@ public privileged aspect EndGame {
 	 * TODO: Look up AspectJ around feature
 	 * @param c4_dialog
 	 */
-
+	void around(C4Dialog c4_dialog):end_game(c4_dialog){
+		//GAME OVER
+		//TODO: Figure this part out
+		if(c4_dialog.board.isGameOver())
+			System.out.println("FIXME");
+		//GAME NOT OVER
+		else
+			proceed(c4_dialog);//
+	}
 }
