@@ -54,5 +54,19 @@ public privileged aspect EndGame {
 			}
 		}	
 	}
+	
+	/**
+	 * POINTCUT end_game(c4_dialog)
+	 * This section allows us to end the game at its current state
+	 * @param c4_dialog
+	 */
+	pointcut end_game(C4Dialog c4_dialog):execution(* makeMove(int)) && target(c4_dialog);
+	
+	//FIXME: THE ISSUE IS IN THE NEXT LINE OF CODE
+	/**
+	 * around(c4_dialog)
+	 * TODO: Look up AspectJ around feature
+	 * @param c4_dialog
+	 */
 
 }
