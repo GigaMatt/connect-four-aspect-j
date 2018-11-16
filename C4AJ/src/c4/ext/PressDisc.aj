@@ -13,12 +13,20 @@
 
 package c4.ext;
 import c4.base.*;
+import c4.model.*;
 @SuppressWarnings("unused")
 
 public privileged aspect PressDisc{
 	
 	//feature enable
-	private static final boolean DISABLED = false;
+//	private static final boolean DISABLED = false;
+	
+	pointcut mouseClick():
+		execution(void mouseClicked(..));
+	
+	before(): mouseClick(){
+		mouseAdapter.
+	}
 	
 	
 	
