@@ -46,5 +46,22 @@ public privileged aspect AddSound {
 	   }
 	
 	
-
+	/**
+	 * POINTCUT disc_drop(c4_dialog)
+	 * This section allows us to determine which player is dropping the disk
+	 * @param c4_dialog
+	 */
+	pointcut disc_drop(C4Dialog c4_dialog):execution(* makeMove(int)) && this(c4_dialog);
+	before(C4Dialog c4_dialog):disc_drop(c4_dialog){
+		
+		if(c4_dialog.player.color() == Color.RED)
+			play_audio("fb_notification_sound.mp3");	//TODO: VERIFY MP3 IS ACCEPTED
+		
+		//FIXME: Audio may need to be converted to .wav format
+		if(c4_dialog.player.color() == Color.BLUE)
+			play_audio("coin_sound_effect.mp3");		//TODO: VERIFY MP3 IS ACCEPTED
+		//Worst case scenario because half the time, code doesn't work
+		else 
+			play_audio("lotr_nazgul_scream.mp3");		//TODO: VERIFY MP3 IS ACCEPTED
+	}
 }
