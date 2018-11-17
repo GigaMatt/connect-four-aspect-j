@@ -5,7 +5,7 @@
  * @author Jaime Sanchez
  * @author Samuel Tinevra
  * Purpose:
- * Last Modified: 6 November 2018
+ * Last Modified: 18 November 2018
  * 
  * 
  * FEATURE 6 EC: AI Opponent to support 2-Player Game
