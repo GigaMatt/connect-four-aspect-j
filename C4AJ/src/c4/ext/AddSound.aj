@@ -8,9 +8,86 @@
  * Last Modified: 18 November 2018
  * 
  * 
+<<<<<<< HEAD
  * FEATURE 3: Add Sounds When Disks Are Dropped
+=======
+ * FEATURE 3:
+ * - Play a sound when a player drops a disc. Use a distinct sound for each player
+ * - Play a sound of applause, or cheering, when a player wins *****************
+>>>>>>> jaime
  */
 
+
+package c4.ext;
+<<<<<<< HEAD
+import java.awt.Color;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import c4.base.C4Dialog;
+=======
+>>>>>>> jaime
+
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import c4.base.C4Dialog;
+
+<<<<<<< HEAD
+public privileged aspect AddSound {
+	//TODO add sound directory location
+	private static final String AUDIO_DIRECTORY = "/audio_clips/";
+	
+	/**
+	 * play_audio(filename)
+	 * This method plays specific sounds that are called in the SOUND_DIRECTORY
+	 * @param filename
+	 */
+=======
+privileged aspect AddSound {
+                
+    /** Directory where audio files are stored. */
+    private static final String SOUND_DIR = "/sound/";
+
+	
+    //plays sound based on current player's turn
+    before(C4Dialog c4Dialog) : execution(* C4Dialog.makeMove(int)) && this(c4Dialog) {  
+    	//if blue turn
+    	if(c4Dialog.player.name() == "Blue"){
+    		playAudio("");
+        }
+        //if red turn
+        if(c4Dialog.player.name() == "Red"){
+        	playAudio("");
+        	}
+        }
+     
+    
+        
+
+    /** Play the given audio file. Inefficient because a file will be 
+     * (re)loaded each time it is played. */
+    public static void playAudio(String filename) {
+      try {
+          AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+            AddSound.class.getResource(SOUND_DIR + filename));
+          Clip clip = AudioSystem.getClip();
+          clip.open(audioIn);
+          clip.start();
+      } catch (UnsupportedAudioFileException 
+            | IOException | LineUnavailableException e) {
+          e.printStackTrace();
+      }
+    }
+    
+}
+/**
 
 package c4.ext;
 import java.awt.Color;
@@ -26,12 +103,8 @@ import c4.base.C4Dialog;
 public privileged aspect AddSound {
 	//TODO add sound directory location
 	private static final String AUDIO_DIRECTORY = "/audio_clips/";
-	
-	/**
-	 * play_audio(filename)
-	 * This method plays specific sounds that are called in the SOUND_DIRECTORY
-	 * @param filename
-	 */
+
+>>>>>>> jaime
 	public static void play_audio(String file_name){
 	     try{
 	    	//Import audio file from project directory 
@@ -44,6 +117,7 @@ public privileged aspect AddSound {
 	         e.printStackTrace();	//WORST-CASE SCENARIO
 	     }
 	   }
+<<<<<<< HEAD
 	
 	
 	/**
@@ -51,6 +125,10 @@ public privileged aspect AddSound {
 	 * This section allows us to determine which player is dropping the disk
 	 * @param c4_dialog
 	 */
+=======
+
+
+>>>>>>> jaime
 	pointcut disc_drop(C4Dialog c4_dialog):execution(* makeMove(int)) && this(c4_dialog);
 	before(C4Dialog c4_dialog):disc_drop(c4_dialog){
 		
@@ -64,4 +142,9 @@ public privileged aspect AddSound {
 		else 
 			play_audio("lotr_nazgul_scream.mp3");		//TODO: VERIFY MP3 IS ACCEPTED
 	}
+<<<<<<< HEAD
 }
+=======
+}
+*/
+>>>>>>> jaime

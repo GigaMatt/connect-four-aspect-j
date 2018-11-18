@@ -8,11 +8,93 @@
  * Last Modified: 18 November 2018
  * 
  * 
- * FEATURE 2: Terminates the game when appropriate
+ * FEATURE 2: 
+ * - Display the game outcome (win or draw) in the message bar.
+ * - Highlight the winning sequence of discs in the board panel.
+ * - Change the behavior of the "new" button to not prompt the user when the game is over.
  */
 
 
 package c4.ext;
+<<<<<<< HEAD
+=======
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.List;
+import c4.model.Board;
+import c4.model.Board.Place;
+import c4.base.BoardPanel;
+import c4.base.C4Dialog;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+
+public privileged aspect EndGame{
+	
+	/** feature enable: TRUE = Disabled, FALSE = Enabled */
+	private static final boolean DISABLED = false;
+	
+	
+	void around(C4Dialog c4Dialog): execution(* C4Dialog.makeMove(int)) && this(c4Dialog){
+		/** Check if Game is Over, or feature is disabled */
+		if(c4Dialog.board.isGameOver() || DISABLED) {
+			return;
+		}
+		else
+			proceed(c4Dialog);
+	}
+	
+	/** Display Message if Game is over. If board is full = tie. */
+	after(C4Dialog dialogMove): this(dialogMove) && execution(void C4Dialog.makeMove(..)) {
+		if (dialogMove.board.isGameOver()) {
+			if(dialogMove.board.isFull()) {	
+				dialogMove.showMessage("Game is over, is a tie");
+			}
+			else {
+				dialogMove.showMessage("Game is over, winner is :"+ dialogMove.player.name() );
+			}
+		}
+	}
+	
+	
+	/** Change button */
+	void around(C4Dialog dialogEnd): this(dialogEnd) && execution(void C4Dialog.newButtonClicked(..)) {
+		if (dialogEnd.board.isGameOver()) {
+			dialogEnd.startNewGame();
+		}
+		else {
+			proceed(dialogEnd);
+		}
+	}
+	
+	
+	/** Show winning line */
+	pointcut VisualCueEnd(BoardPanel CueEnd): execution(BoardPanel.new(Board)) && target(CueEnd);
+	
+	after(BoardPanel CueEnd): VisualCueEnd(CueEnd) {
+			CueEnd.addMouseMotionListener(new MouseMotionAdapter() {
+				public void mouseMoved(MouseEvent e){
+						List<Place> winningRow = CueEnd.board.winningRow;
+						for(Place P : winningRow) {
+							Graphics gt = CueEnd.getGraphics();
+							gt.setColor(Color.BLUE);
+							int x = CueEnd.placeSize + P.x * CueEnd.placeSize; 
+							int y = CueEnd.placeSize + P.y * CueEnd.placeSize; 
+							int r = CueEnd.placeSize / 2;              
+							gt.fillOval(x - r, y - r, r * 2+1, r * 2+1);
+						}
+					}
+			});
+	}
+	
+}
+
+/**
+ * HERE IS MATT'S CODE: IMPLEMENT PIECES AS YOU NEED TO VERIFY IT WORKS
+ * 
+
+package c4.ext;
+>>>>>>> jaime
 import c4.base.*;
 import java.awt.*;
 import c4.model.*;
@@ -26,11 +108,14 @@ import c4.base.C4Dialog;
 public privileged aspect EndGame {
 	ColorPlayer player_color = new ColorPlayer("Black",Color.BLACK);	//TODO: Change asthetic to white if appearance is ruined
 		
+<<<<<<< HEAD
 	/**
 	 * POINTCUT game_over(c4_dialog)
 	 * This section allows us to check the progress of the game
 	 * @param c4_dialog
 	 */
+=======
+>>>>>>> jaime
 	pointcut game_over(C4Dialog c4_dialog):this(c4_dialog) && (call(void C4Dialog.makeMove(int)) || call(int Board.dropInSlot(int, Player)));
 	after(C4Dialog c4_dialog):game_over(c4_dialog){
 		
@@ -55,6 +140,7 @@ public privileged aspect EndGame {
 		}	
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * POINTCUT end_game(c4_dialog)
 	 * This section allows us to end the game at its current state
@@ -68,6 +154,10 @@ public privileged aspect EndGame {
 	 * TODO: Look up AspectJ around feature
 	 * @param c4_dialog
 	 */
+=======
+
+	pointcut end_game(C4Dialog c4_dialog):execution(* makeMove(int)) && target(c4_dialog);
+>>>>>>> jaime
 	void around(C4Dialog c4_dialog):end_game(c4_dialog){
 		//GAME OVER
 		//TODO: Figure this part out
@@ -77,4 +167,10 @@ public privileged aspect EndGame {
 		else
 			proceed(c4_dialog);//
 	}
+<<<<<<< HEAD
 }
+=======
+}
+
+*/
+>>>>>>> jaime

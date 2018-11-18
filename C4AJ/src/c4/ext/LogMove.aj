@@ -8,7 +8,7 @@
  * Last Modified: 18 November 2018
  * 
  * 
- * FEATURE: WTF IS THIS?
+ * FEATURE: Logging
  */
 package c4.ext;
 import c4.model.*;

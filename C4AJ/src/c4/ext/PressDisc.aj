@@ -14,12 +14,44 @@
 
 package c4.ext;
 import c4.base.*;
+<<<<<<< HEAD
 import java.awt.event.MouseAdapter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public privileged aspect PressDisc {
 	
+=======
+import c4.model.*;
+@SuppressWarnings("unused")
+
+public privileged aspect PressDisc{
+	
+	//feature enable
+//	private static final boolean DISABLED = false;
+	
+	pointcut mouseClick():
+		execution(void mouseClicked(..));
+	
+	before(): mouseClick(){
+		mouseAdapter.
+	}
+	
+	
+	
+}
+/**
+ * HERE IS MATT'S CODE: IMPLEMENT TO SEE IF IT WORKS
+
+package c4.ext;
+import c4.base.*;
+import java.awt.event.MouseAdapter;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+public privileged aspect PressDisc {
+	
+>>>>>>> jaime
 	pointcut press_disc(BoardPanel panel):(call(int BoardPanel.locateSlot(int,int))) && target(panel) &&! within(PressDisc);
 	after(BoardPanel panel):press_disc(panel){
 		
@@ -52,4 +84,11 @@ public privileged aspect PressDisc {
 		    }
 		});	
 	}
+<<<<<<< HEAD
 }
+=======
+}
+ * 
+ * 
+ */
+>>>>>>> jaime
