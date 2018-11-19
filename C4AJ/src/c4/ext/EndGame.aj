@@ -24,34 +24,34 @@ import c4.model.Board;
 import c4.model.Board.Place;
 import c4.base.BoardPanel;
 import c4.base.C4Dialog;
+import c4.base.ColorPlayer;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 public privileged aspect EndGame{
 
 	/** feature enable: TRUE = Disabled, FALSE = Enabled */
-	private static final boolean DISABLED = false;
+	//private static final boolean DISABLED = false;
 
+	ColorPlayer player_color = new ColorPlayer("Black",Color.BLACK);	//TODO: Change asthetic to white if appearance is ruined
 
-	void around(C4Dialog c4Dialog): execution(* C4Dialog.makeMove(int)) && this(c4Dialog){
-		/** Check if Game is Over, or feature is disabled */
-		if(c4Dialog.board.isGameOver() || DISABLED) {
-			return;
+	pointcut game_over(C4Dialog c4_dialog):this(c4_dialog) && (call(void C4Dialog.makeMove(int)) || call(int Board.dropInSlot(int, Player)));
+	after(C4Dialog c4_dialog):game_over(c4_dialog){
+
+		//PLAYER WON GAME
+		if(c4_dialog.board.isWonBy(c4_dialog.player)){			//Verify player won game
+			c4_dialog.showMessage("Game is over, winner is :"+ c4_dialog.player.name() );
+			AddSound.playAudio("vergecast.wav");
 		}
-		else
-			proceed(c4Dialog);
-	}
 
-	/** Display Message if Game is over. If board is full = tie. */
-	after(C4Dialog dialogMove): this(dialogMove) && execution(void C4Dialog.makeMove(..)) {
-		if (dialogMove.board.isGameOver()) {
-			if(dialogMove.board.isFull()) {	
-				dialogMove.showMessage("Game is over, is a tie");
+		//GAME IS A DRAW
+		else {
+			if(c4_dialog.board.isFull()){						//Verify game is a draw
+				c4_dialog.showMessage("Tie Game!");
+				AddSound.playAudio("nazgul.wav");
 			}
-			else {
-				dialogMove.showMessage("Game is over, winner is :"+ dialogMove.player.name() );
-			}
-		}
+		}	
 	}
 
 
@@ -111,21 +111,15 @@ public privileged aspect EndGame {
 
 		//PLAYER WON GAME
 		if(c4_dialog.board.isWonBy(c4_dialog.player)){			//Verify player won game
-			//TODO: VERIFY MP3 IS ACCEPTED
-			AddSound.play_audio("vergecast_season2_ost.mp3");	//Call to AddSound.aj to process & play
-
-			//Display Win Message
-			JOptionPane.showMessageDialog(new JFrame(), c4_dialog.player.name() + " won the game! Congratulations", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+			dialogMove.showMessage("Game is over, winner is :"+ dialogMove.player.name() );
+			AddSound.playAudio("vergecast.wav");
 		}
 
 		//GAME IS A DRAW
 		else {
 			if(c4_dialog.board.isFull()){						//Verify game is a draw
-				//TODO: VERIFY MP3 IS ACCEPTED
-				AddSound.play_audio("lotr_nazgul_scream.mp3");	//Call to AddSound.aj to process & play
-
-				//Display Draw Message
-				JOptionPane.showMessageDialog(new JFrame(), "The game is a Draw.", "Dialog", JOptionPane.INFORMATION_MESSAGE);
+				dialogMove.showMessage("Tie Game!");
+				AddSound.playAudio("nazgul.wav");
 			}
 		}	
 	}

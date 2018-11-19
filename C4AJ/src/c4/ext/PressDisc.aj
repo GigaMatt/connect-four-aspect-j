@@ -15,26 +15,45 @@ import c4.base.*;
 import java.awt.event.MouseAdapter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import c4.model.*;
 
 
 public privileged aspect PressDisc {
 
-	@SuppressWarnings("unused")
+	pointcut press_disc(BoardPanel panel):(call(int BoardPanel.locateSlot(int,int))) && target(panel) &&! within(PressDisc);
+	after(BoardPanel panel):press_disc(panel){
 
-	//feature enable
-	//	private static final boolean DISABLED = false;
+		//Add listener for when mouse is clicked
+		panel.addMouseListener(new MouseAdapter(){
+			//TODO verify that @Override is still necessary after code merge
+			@Override
+			public void mousePressed(MouseEvent e){
+				//Verify game is active
+				if(!(panel.board.isGameOver())){
+					Graphics g = panel.getGraphics();								//Initiate instance of graphics
+					int matrix_position = panel.locateSlot(e.getX(), e.getY());		//ID (x,y) position of board slot
+					panel.drawChecker(g, panel.dropColor, matrix_position, -1, -1);	//Enlarge disk upon pressing
+					panel.drawChecker(g, panel.dropColor, matrix_position, -1, true);
+				}
+		    }
+		});
 
-	pointcut mouseClick():
-		execution(void mouseClicked(..));
-
-	before(): mouseClick(){
-		mouseAdapter.
+		//Add listener for when mouse is released
+		panel.addMouseListener(new MouseAdapter(){
+			//TODO verify that @Override is still necessary after code merge
+			@Override
+			public void mouseReleased(MouseEvent e){
+				//Verify game is still active
+				if(!(panel.board.isGameOver())){
+					Graphics g = panel.getGraphics();								//Initiate instance of graphics
+					int matrix_position = panel.locateSlot(e.getX(), e.getY());		//ID (x,y) position of board slot
+					panel.drawChecker(g, panel.dropColor, matrix_position, -1, 0);	//Decrease disk size upon release
+				}	
+		    }
+		});	
 	}
-
-
-
 }
+
+
 /**
  * HERE IS MATT'S CODE: IMPLEMENT TO SEE IF IT WORKS
 

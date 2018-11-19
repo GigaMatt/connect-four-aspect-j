@@ -25,9 +25,9 @@ public privileged aspect AddHumanOpponent{
 	private BoardPanel C4Dialog.smith;
 	
 	/** Player 1: Blue */
-	ColorPlayer B1 = new ColorPlayer("Blue", Color.BLUE );
+	ColorPlayer Blue = new ColorPlayer("Blue", Color.BLUE );
 	/** Player 2: Red */
-	ColorPlayer R2 = new ColorPlayer("Red", Color.RED );
+	ColorPlayer Red = new ColorPlayer("Red", Color.RED );
 	
 	/**  */
 	after(C4Dialog c4Dialog) returning(BoardPanel panel):
@@ -40,11 +40,11 @@ public privileged aspect AddHumanOpponent{
 	{
 		//if player is blue change to red
 		if (c4Dialog.player.name().equals("Blue")) {
-			c4Dialog.player = R2;
+			c4Dialog.player = Red;
 			c4Dialog.showMessage("Red turn");
 		//if player is red change to blue
 		} else if (c4Dialog.player.name().equals("Red")) {
-			c4Dialog.player = B1;
+			c4Dialog.player = Blue;
 			c4Dialog.showMessage("Blue turn");
 		}
 		c4Dialog.smith.setDropColor(c4Dialog.player.color());
